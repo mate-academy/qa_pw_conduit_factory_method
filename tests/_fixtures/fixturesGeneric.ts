@@ -37,7 +37,7 @@ export const test = base.extend<
   },
   users: async ({ factories, usersNumber }, use) => {
     const users = Array(usersNumber);
-    const userFactory = factories.user.generateUser();
+    const userFactory = factories.user;
 
     for (let i = 0; i < usersNumber; i++) {
       users[i] = userFactory.generateUser();

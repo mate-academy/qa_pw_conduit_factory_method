@@ -4,27 +4,24 @@ import {
   EMPTY_PASSWORD_MESSAGE,
   INVALID_EMAIL_OR_PASSWORD_MESSAGE,
 } from '../../../src/ui/constants/authErrorMessages';
-import { generateNewUserData } from '../../../src/common/testData/generateNewUserData';
+import { UserFactory } from '../../../src/factoryItems/UserFactory';
 
-const user = generateNewUserData();
+const userFactory = new UserFactory();
 const testParameters = [
   {
-    email: user.email,
-    password: '',
     message: EMPTY_PASSWORD_MESSAGE,
     title: 'empty password',
+    ...userFactory.generateUser({ password: '' }),
   },
   {
-    email: '',
-    password: user.password,
     message: EMPTY_EMAIL_MESSAGE,
     title: 'empty email',
+    ...userFactory.generateUser({ email: '' }),
   },
   {
-    email: user.email,
-    password: '1',
     message: INVALID_EMAIL_OR_PASSWORD_MESSAGE,
     title: 'wrong password',
+    ...userFactory.generateUser({ password: '1' }),
   },
 ];
 
