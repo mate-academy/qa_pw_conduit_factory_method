@@ -1,9 +1,8 @@
 import { test as base } from '@playwright/test';
 import { Logger } from '../../src/common/logger/Logger';
-import { generateNewUserData } from '../../src/common/testData/generateNewUserData';
 import * as allure from 'allure-js-commons';
 import { parseTestTreeHierarchy } from '../../src/common/helpers/allureHelpers';
-import { User } from '../../src/factoryItems/User';
+import { UserFactory } from '../../src/factoryItems/UserFactory';
 
 export const test = base.extend<
   {
@@ -31,16 +30,17 @@ export const test = base.extend<
     }
     await use(pages);
   },
-  user: async ({}, use) => {
-    const user = new User();
+  user: async ({ factories }, use) => {
+    const user = factories.user.generateUser();
 
     await use(user);
   },
-  users: async ({ logger, usersNumber }, use) => {
+  users: async ({ factories, usersNumber }, use) => {
     const users = Array(usersNumber);
+    const userFactory = factories.user.generateUser();
 
     for (let i = 0; i < usersNumber; i++) {
-      users[i] = new User();
+      users[i] = userFactory.generateUser();
     }
 
     await use(users);

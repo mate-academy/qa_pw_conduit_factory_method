@@ -20,7 +20,7 @@ export class BasePage {
     if (this._url) {
       return this._url;
     } else {
-      throw Error(`The property '_url' must be implemented`);
+      return '';
     }
   }
 
