@@ -1,4 +1,4 @@
-# Practice with using of creational design patterns
+# Practice using creational design patterns for Conduit
 
 ## Table of contents
 
