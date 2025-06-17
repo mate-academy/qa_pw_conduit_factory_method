@@ -3,37 +3,43 @@ import { BasePage } from '../BasePage';
 import { ROUTES } from '../../../api/constants/apiRoutes';
 
 export class SignUpPage extends BasePage {
+  #usernameField;
+  #emailField;
+  #passwordField;
+  #signUpButton;
+  #errorMessage;
+
   constructor(page, userId = 0) {
     super(page, userId);
     this._url = '/user/register';
-    this.usernameField = page.getByPlaceholder('Username');
-    this.emailField = page.getByPlaceholder('Email');
-    this.passwordField = page.getByPlaceholder('Password');
-    this.signUpButton = page.getByRole('button', { name: 'Sign up' });
-    this.errorMessage = page.getByRole('list').nth(1);
+    this.#usernameField = page.getByPlaceholder('Username');
+    this.#emailField = page.getByPlaceholder('Email');
+    this.#passwordField = page.getByPlaceholder('Password');
+    this.#signUpButton = page.getByRole('button', { name: 'Sign up' });
+    this.#errorMessage = page.getByRole('list').nth(1);
   }
 
   async fillUsernameField(username) {
     await this.step(`Fill the 'Username' field`, async () => {
-      await this.usernameField.fill(username);
+      await this.#usernameField.fill(username);
     });
   }
 
   async fillEmailField(email) {
     await this.step(`Fill the 'Email' field`, async () => {
-      await this.emailField.fill(email);
+      await this.#emailField.fill(email);
     });
   }
 
   async fillPasswordField(password) {
     await this.step(`Fill the 'Password' field`, async () => {
-      await this.passwordField.fill(password);
+      await this.#passwordField.fill(password);
     });
   }
 
   async clickSignUpButton() {
     await this.step(`Click the 'Sign up' button`, async () => {
-      await this.signUpButton.click();
+      await this.#signUpButton.click();
     });
   }
 
@@ -43,7 +49,7 @@ export class SignUpPage extends BasePage {
       async () => {
         const requestPromise = this.page.waitForRequest(ROUTES.users.index);
 
-        await this.signUpButton.click();
+        await this.#signUpButton.click();
 
         return await requestPromise;
       },
@@ -62,7 +68,7 @@ export class SignUpPage extends BasePage {
 
   async assertErrorMessageContainsText(messageText) {
     await this.step(`Assert the '${messageText}' error is shown`, async () => {
-      await expect(this.errorMessage).toContainText(messageText);
+      await expect(this.#errorMessage).toContainText(messageText);
     });
   }
 }

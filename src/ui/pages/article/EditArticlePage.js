@@ -3,15 +3,17 @@ import { BasePage } from '../BasePage';
 import { InternalHeader } from '../../components/header/InternalHeader';
 
 export class EditArticlePage extends BasePage {
+  #articleTitleHeader;
+
   constructor(page, userId = 0) {
     super(page, userId);
     this.header = new InternalHeader(this.page, userId);
-    this.articleTitleHeader = page.getByRole('heading');
+    this.#articleTitleHeader = page.getByRole('heading');
   }
 
   async assertArticleTitle(title) {
     await this.step(`Assert the article has correct title'`, async () => {
-      await expect(this.articleTitleHeader).toContainText(title);
+      await expect(this.#articleTitleHeader).toContainText(title);
     });
   }
 

@@ -3,25 +3,25 @@ import { BasePage } from '../BasePage';
 import { ArticleHeader } from '../../components/article/ArticleHeader';
 
 export class ViewArticlePage extends BasePage {
-  articleId;
+  #articleFavoriteButton;
+  #articleUnfavoriteButton;
 
   constructor(page, userId = 0) {
     super(page, userId);
     this.articleHeader = new ArticleHeader(page);
-    this.articleTitleHeader = page.getByRole('heading');
-    this.articleFavoriteButton = page
+    this.#articleFavoriteButton = page
       .getByRole('button', {
         name: 'Favorite Article',
       })
       .last();
-    this.articleUnfavoriteButton = page
+    this.#articleUnfavoriteButton = page
       .getByRole('button', {
         name: 'Unfavorite Article',
       })
       .last();
   }
 
-  tagListItem(tagName) {
+  #tagListItem(tagName) {
     return this.page.getByRole('listitem').filter({ hasText: tagName });
   }
 
@@ -34,7 +34,7 @@ export class ViewArticlePage extends BasePage {
   async assertArticleTagsAreVisible(tags) {
     await this.step(`Assert the article has correct tags`, async () => {
       for (let i = 0; i < tags.length; i++) {
-        await expect(this.tagListItem(tags[i])).toBeVisible();
+        await expect(this.#tagListItem(tags[i])).toBeVisible();
       }
     });
   }
@@ -43,7 +43,7 @@ export class ViewArticlePage extends BasePage {
     await this.step(
       `Assert the Unfavorite article button is shown in article body`,
       async () => {
-        await expect(this.articleUnfavoriteButton).toBeVisible();
+        await expect(this.#articleUnfavoriteButton).toBeVisible();
       },
     );
   }
@@ -52,7 +52,7 @@ export class ViewArticlePage extends BasePage {
     await this.step(
       `Assert the Favorite article button is shown in article body`,
       async () => {
-        await expect(this.articleFavoriteButton).toBeVisible();
+        await expect(this.#articleFavoriteButton).toBeVisible();
       },
     );
   }

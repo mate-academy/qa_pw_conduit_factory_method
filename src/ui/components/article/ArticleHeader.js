@@ -3,15 +3,19 @@ import { expect } from '../../../common/helpers/pw';
 import { ROUTES } from '../../../api/constants/apiRoutes';
 
 export class ArticleHeader extends BaseComponent {
+  #title;
+  #articleFavoriteButton;
+  #articleUnfavoriteButton;
+
   constructor(page, userId = 0) {
     super(page, userId);
-    this.title = page.getByRole('heading');
-    this.articleFavoriteButton = page
+    this.#title = page.getByRole('heading');
+    this.#articleFavoriteButton = page
       .getByRole('button', {
         name: 'Favorite Article',
       })
       .first();
-    this.articleUnfavoriteButton = page
+    this.#articleUnfavoriteButton = page
       .getByRole('button', {
         name: 'Unfavorite Article',
       })
@@ -26,7 +30,7 @@ export class ArticleHeader extends BaseComponent {
           `**${ROUTES.articles('**').favorite}`,
         );
 
-        await this.articleFavoriteButton.click();
+        await this.#articleFavoriteButton.click();
 
         const request = await requestPromise;
 
@@ -44,7 +48,7 @@ export class ArticleHeader extends BaseComponent {
           `**${ROUTES.articles('**').favorite}`,
         );
 
-        await this.articleUnfavoriteButton.click();
+        await this.#articleUnfavoriteButton.click();
 
         const request = await requestPromise;
 
@@ -56,11 +60,11 @@ export class ArticleHeader extends BaseComponent {
 
   async assertTitleIsVisible(title) {
     await this.step(`Assert the article has correct title`, async () => {
-      await expect(this.title).toContainText(title);
+      await expect(this.#title).toContainText(title);
     });
   }
 
-  authorLink(username) {
+  #authorLink(username) {
     return this.page.getByRole('link', { username }).first();
   }
 
@@ -68,7 +72,7 @@ export class ArticleHeader extends BaseComponent {
     await this.step(
       `Assert the article has correct author username`,
       async () => {
-        await expect(this.authorLink(username)).toBeVisible();
+        await expect(this.#authorLink(username)).toBeVisible();
       },
     );
   }
@@ -77,7 +81,7 @@ export class ArticleHeader extends BaseComponent {
     await this.step(
       `Assert the Unfavorite article button is shown in article header`,
       async () => {
-        await expect(this.articleUnfavoriteButton).toBeVisible();
+        await expect(this.#articleUnfavoriteButton).toBeVisible();
       },
     );
   }
@@ -86,7 +90,7 @@ export class ArticleHeader extends BaseComponent {
     await this.step(
       `Assert the Favorite article button is shown in article header`,
       async () => {
-        await expect(this.articleFavoriteButton).toBeVisible();
+        await expect(this.#articleFavoriteButton).toBeVisible();
       },
     );
   }
