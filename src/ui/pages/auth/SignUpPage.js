@@ -1,6 +1,5 @@
 import { expect } from '../../../common/helpers/pw';
 import { BasePage } from '../BasePage';
-import { ROUTES } from '../../../api/constants/apiRoutes';
 
 export class SignUpPage extends BasePage {
   #usernameField;
@@ -43,22 +42,8 @@ export class SignUpPage extends BasePage {
     });
   }
 
-  async clickSignUpButtonAndWaitForRequest() {
-    return await this.step(
-      `Click the 'Sign up' button and wait for request `,
-      async () => {
-        const requestPromise = this.page.waitForRequest(ROUTES.users.index);
-
-        await this.#signUpButton.click();
-
-        return await requestPromise;
-      },
-    );
-  }
-
   async submitSignUpForm(user) {
     await this.step(`Fill the 'Sign up' form`, async () => {
-      console.log(user);
       await this.fillUsernameField(user.username);
       await this.fillEmailField(user.email);
       await this.fillPasswordField(user.password);

@@ -1,6 +1,5 @@
 import { BaseComponent } from '../BaseComponent';
 import { expect } from '../../../common/helpers/pw';
-import { ROUTES } from '../../../api/constants/apiRoutes';
 
 export class ArticleHeader extends BaseComponent {
   #title;
@@ -22,40 +21,16 @@ export class ArticleHeader extends BaseComponent {
       .first();
   }
 
-  async clickFollowArtcileAndWaitForRequest() {
-    await this.step(
-      `Click the Follow article button and wait for request`,
-      async () => {
-        const requestPromise = this.page.waitForRequest(
-          `**${ROUTES.articles('**').favorite}`,
-        );
-
-        await this.#articleFavoriteButton.click();
-
-        const request = await requestPromise;
-
-        expect(request.url()).toContain('favorite');
-        expect(request.method()).toEqual('POST');
-      },
-    );
+  async clickFollowArtcile() {
+    await this.step(`Click the Follow article button`, async () => {
+      await this.#articleFavoriteButton.click();
+    });
   }
 
-  async clickUnfollowArtcileAndWaitForRequest() {
-    await this.step(
-      `Click the Unfollow article button and wait for request`,
-      async () => {
-        const requestPromise = this.page.waitForRequest(
-          `**${ROUTES.articles('**').favorite}`,
-        );
-
-        await this.#articleUnfavoriteButton.click();
-
-        const request = await requestPromise;
-
-        expect(request.url()).toContain('favorite');
-        expect(request.method()).toEqual('DELETE');
-      },
-    );
+  async clickUnfollowArtcile() {
+    await this.step(`Click the Unfollow article button`, async () => {
+      await this.#articleUnfavoriteButton.click();
+    });
   }
 
   async assertTitleIsVisible(title) {

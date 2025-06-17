@@ -9,13 +9,13 @@ export const test = base.extend<{
   createArticlePage;
   viewArticlePage;
 }>({
-  articleWithoutTags: async ({ logger }, use) => {
-    const article = generateNewArticleData(logger);
+  articleWithoutTags: async ({}, use) => {
+    const article = generateNewArticleData();
 
     await use(article);
   },
-  articleWithOneTag: async ({ logger }, use) => {
-    const article = generateNewArticleData(logger, 1);
+  articleWithOneTag: async ({}, use) => {
+    const article = generateNewArticleData(1);
 
     await use(article);
   },
