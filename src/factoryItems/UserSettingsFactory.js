@@ -13,7 +13,7 @@ export class UserSettingsFactory extends UserFactory {
   }
 
   generateProfilePictureUrl() {
-    return faker.internet.url();
+    return faker.image.avatar();
   }
 
   generateBio() {
