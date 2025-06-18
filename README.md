@@ -1,4 +1,4 @@
-# Practice using creational design patterns for Conduit
+# Practice using creational design pattern Factory Method
 
 ## Table of contents
 
@@ -9,7 +9,7 @@
 
 ## Description
 
-In this task you will practice implementing the creational design patterns: Factory method and Builder for the Conduit application. 
+In this task you will practice implementing the Factory method for Article test data generation. 
 
 ## Preparation
 
