@@ -11,7 +11,6 @@ test.describe('Sign up negative tests', () => {
     await signUpPage.fillEmailField(user.email);
     await signUpPage.fillPasswordField(user.password);
     await signUpPage.clickSignUpButton();
-
     await signUpPage.assertErrorMessageContainsText(EMPTY_USERNAME_MESSAGE);
   });
 
@@ -20,7 +19,6 @@ test.describe('Sign up negative tests', () => {
     await signUpPage.fillUsernameField(user.username);
     await signUpPage.fillPasswordField(user.password);
     await signUpPage.clickSignUpButton();
-
     await signUpPage.assertErrorMessageContainsText(INVALID_EMAIL_MESSAGE);
   });
 
@@ -29,7 +27,6 @@ test.describe('Sign up negative tests', () => {
     await signUpPage.fillUsernameField(user.username);
     await signUpPage.fillEmailField(user.email);
     await signUpPage.clickSignUpButton();
-
     await signUpPage.assertErrorMessageContainsText(EMPTY_PASSWORD_MESSAGE);
   });
 });

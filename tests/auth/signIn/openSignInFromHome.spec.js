@@ -5,8 +5,6 @@ test('Open Sign In page from Home page', async ({
   externalHomePage,
 }) => {
   await externalHomePage.open();
-
   await externalHomePage.header.clickSignInLink();
-
   await signInPage.assertOpened();
 });

@@ -10,6 +10,5 @@ test('Successful `Sign up` flow test', async ({
   await signUpPage.fillEmailField(user.email);
   await signUpPage.fillPasswordField(user.password);
   await signUpPage.clickSignUpButton();
-
   await internalHomePage.yourFeed.assertTabLinkVisible();
 });

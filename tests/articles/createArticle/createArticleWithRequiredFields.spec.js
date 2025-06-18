@@ -13,15 +13,17 @@ test.beforeEach(async ({ page, user, logger }) => {
 test('Creat an article with required fields', async ({
   internalHomePage,
   createArticlePage,
-  viewArticlePage,
+  internalViewArticlePage,
 }) => {
   await internalHomePage.header.clickNewArticleLink();
-
   await createArticlePage.fillTitleField(article.title);
   await createArticlePage.fillDescriptionField(article.description);
   await createArticlePage.fillTextField(article.text);
   await createArticlePage.clickPublishArticleButton();
-
-  await viewArticlePage.articleHeader.assertTitleIsVisible(article.title);
-  await viewArticlePage.assertArticleTextIsVisible(article.text);
+  await internalViewArticlePage.articleHeader.assertTitleIsVisible(
+    article.title,
+  );
+  await internalViewArticlePage.articleContent.assertArticleTextIsVisible(
+    article.text,
+  );
 });

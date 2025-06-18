@@ -17,22 +17,26 @@ testParameters.forEach(({ tagsNumber, testNameEnding }) => {
     test(`Create an article with ${testNameEnding}`, async ({
       internalHomePage,
       createArticlePage,
-      viewArticlePage,
+      internalViewArticlePage,
       logger,
     }) => {
       const article = generateNewArticleData(logger, tagsNumber);
 
       await internalHomePage.header.clickNewArticleLink();
-
       await createArticlePage.fillTitleField(article.title);
       await createArticlePage.fillDescriptionField(article.description);
       await createArticlePage.fillTextField(article.text);
       await createArticlePage.fillTagsField(article.tags);
       await createArticlePage.clickPublishArticleButton();
-
-      await viewArticlePage.articleHeader.assertTitleIsVisible(article.title);
-      await viewArticlePage.assertArticleTextIsVisible(article.text);
-      await viewArticlePage.assertArticleTagsAreVisible(article.tags);
+      await internalViewArticlePage.articleHeader.assertTitleIsVisible(
+        article.title,
+      );
+      await internalViewArticlePage.articleContent.assertArticleTextIsVisible(
+        article.text,
+      );
+      await internalViewArticlePage.articleContent.assertArticleTagsAreVisible(
+        article.tags,
+      );
     });
   });
 });

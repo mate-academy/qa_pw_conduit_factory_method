@@ -20,6 +20,5 @@ test('Successful `Sign in` flow test', async ({ user }) => {
   await signInPage.fillEmailField(user.email);
   await signInPage.fillPasswordField(user.password);
   await signInPage.clickSignInButton();
-
   await homePage.yourFeed.assertTabLinkVisible();
 });
