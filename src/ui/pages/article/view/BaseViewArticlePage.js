@@ -5,7 +5,7 @@ import { ArticleContentBlock } from '../../../components/article/articleBody/Art
 export class BaseViewArticlePage extends BasePage {
   constructor(page, userId = 0) {
     super(page, userId);
-    this.articleHeader = new ArticleHeader(page);
+    this.articleHeader = new ArticleHeader(page, userId);
     this.articleContent = new ArticleContentBlock(this.page, userId);
   }
 }
