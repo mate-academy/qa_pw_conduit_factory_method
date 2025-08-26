@@ -4,17 +4,15 @@ import { createArticle } from '../../../src/ui/actions/articles/createArticle';
 import { signUpUser } from '../../../src/ui/actions/auth/signUpUser';
 
 test.use({ contextsNumber: 2, usersNumber: 1 });
+let articleWithoutTags;
 
-test.beforeEach(async ({ pages, users, articleWithoutTags }) => {
+test.beforeEach(async ({ pages, users, factories }) => {
   await signUpUser(pages[0], users[0], 1);
+  articleWithoutTags = factories.article.generateArticle({});
   await createArticle(pages[0], articleWithoutTags, 1);
 });
 
-test('View an article as not registered user', async ({
-  articleWithoutTags,
-  pages,
-  users,
-}) => {
+test('View an article as not registered user', async ({ pages, users }) => {
   const page = new ExternalViewArticlePage(pages[1], 2);
 
   await page.open(articleWithoutTags.url);
