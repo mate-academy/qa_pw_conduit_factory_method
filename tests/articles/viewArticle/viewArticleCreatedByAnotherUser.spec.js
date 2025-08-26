@@ -9,7 +9,7 @@ let articleWithoutTags;
 test.beforeEach(async ({ pages, users, factories }) => {
   await signUpUser(pages[0], users[0], 1);
   await signUpUser(pages[1], users[1], 2);
-  articleWithoutTags = factories.article.generateArticle({});
+  articleWithoutTags = factories.article.generateArticle();
   await createArticle(pages[0], articleWithoutTags, 1);
 });
 

@@ -1,12 +1,12 @@
 import { faker } from '@faker-js/faker';
 
 export class ArticleFactory {
-  generateArticle(options = {}, tagNumber = 0) {
+  generateArticle(tagNumber = 0) {
     const article = {
-      title: options.title ?? this.generateTitle(),
-      description: options.description ?? this.generateDescription(),
-      text: options.text ?? this.generateText(),
-      tags: options.tags ?? this.generateTags(tagNumber),
+      title: this.generateTitle(),
+      description: this.generateDescription(),
+      text: this.generateText(),
+      tags: this.generateTags(tagNumber),
     };
 
     return article;

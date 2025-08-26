@@ -4,7 +4,7 @@ import { signUpUser } from '../../../src/ui/actions/auth/signUpUser';
 let article;
 
 test.beforeEach(async ({ page, user, factories }) => {
-  article = factories.article.generateArticle({});
+  article = factories.article.generateArticle();
 
   await signUpUser(page, user);
 });
