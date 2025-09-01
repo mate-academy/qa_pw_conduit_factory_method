@@ -13,6 +13,7 @@ export const test = base.extend<
     users;
     infoTestLog;
     addAllureTestHierarchy;
+    userFactory
   },
   {
     logger;
@@ -20,6 +21,11 @@ export const test = base.extend<
 >({
   usersNumber: [1, { option: true }],
   contextsNumber: [1, { option: true }],
+  userFactory: async ({  }, use) => {
+    const user = new UserFactory();
+
+    await use(user);
+  },
   pages: async ({ browser, contextsNumber }, use) => {
     let pages = Array(contextsNumber);
 
@@ -30,14 +36,13 @@ export const test = base.extend<
     }
     await use(pages);
   },
-  user: async ({ factories }, use) => {
-    const user = factories.user.generateUser();
+  user: async ({ userFactory }, use) => {
+    const user = userFactory.generateUser();
 
     await use(user);
   },
-  users: async ({ factories, usersNumber }, use) => {
+  users: async ({ userFactory, usersNumber }, use) => {
     const users = Array(usersNumber);
-    const userFactory = factories.user;
 
     for (let i = 0; i < usersNumber; i++) {
       users[i] = userFactory.generateUser();

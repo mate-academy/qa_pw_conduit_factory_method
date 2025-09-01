@@ -1,5 +1,4 @@
 import { test } from '../../_fixtures/fixtures';
-import { generateNewArticleData } from '../../../src/common/testData/generateNewArticleData';
 import { signUpUser } from '../../../src/ui/actions/auth/signUpUser';
 
 const testParameters = [
@@ -18,24 +17,24 @@ testParameters.forEach(({ tagsNumber, testNameEnding }) => {
       internalHomePage,
       createArticlePage,
       internalViewArticlePage,
-      logger,
+      article
     }) => {
-      const article = generateNewArticleData(logger, tagsNumber);
+      const createdArticle = article.generateArticle(tagsNumber);
 
       await internalHomePage.header.clickNewArticleLink();
-      await createArticlePage.fillTitleField(article.title);
-      await createArticlePage.fillDescriptionField(article.description);
-      await createArticlePage.fillTextField(article.text);
-      await createArticlePage.fillTagsField(article.tags);
+      await createArticlePage.fillTitleField(createdArticle.title);
+      await createArticlePage.fillDescriptionField(createdArticle.description);
+      await createArticlePage.fillTextField(createdArticle.text);
+      await createArticlePage.fillTagsField(createdArticle.tags);
       await createArticlePage.clickPublishArticleButton();
       await internalViewArticlePage.articleHeader.assertTitleIsVisible(
-        article.title,
+        createdArticle.title,
       );
       await internalViewArticlePage.articleContent.assertArticleTextIsVisible(
-        article.text,
+        createdArticle.text,
       );
       await internalViewArticlePage.articleContent.assertArticleTagsAreVisible(
-        article.tags,
+        createdArticle.tags,
       );
     });
   });
