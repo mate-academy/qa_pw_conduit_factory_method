@@ -1,11 +1,10 @@
 import { test } from '../../_fixtures/fixtures';
-import { generateNewArticleData } from '../../../src/common/testData/generateNewArticleData';
 import { signUpUser } from '../../../src/ui/actions/auth/signUpUser';
 
 let article;
 
-test.beforeEach(async ({ page, user, logger }) => {
-  article = generateNewArticleData(logger);
+test.beforeEach(async ({ page, user, logger, factories }) => {
+  article = factories.article.generateArticle(0, logger);
 
   await signUpUser(page, user);
 });

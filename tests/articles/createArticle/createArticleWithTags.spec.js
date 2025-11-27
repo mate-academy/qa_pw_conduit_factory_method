@@ -1,5 +1,4 @@
 import { test } from '../../_fixtures/fixtures';
-import { generateNewArticleData } from '../../../src/common/testData/generateNewArticleData';
 import { signUpUser } from '../../../src/ui/actions/auth/signUpUser';
 
 const testParameters = [
@@ -19,8 +18,9 @@ testParameters.forEach(({ tagsNumber, testNameEnding }) => {
       createArticlePage,
       internalViewArticlePage,
       logger,
+      factories,
     }) => {
-      const article = generateNewArticleData(logger, tagsNumber);
+      const article = factories.article.generateArticle(tagsNumber, logger);
 
       await internalHomePage.header.clickNewArticleLink();
       await createArticlePage.fillTitleField(article.title);
