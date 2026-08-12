@@ -1,7 +1,9 @@
 import { test as base } from '@playwright/test';
-import { generateNewArticleData } from '../../src/common/testData/generateNewArticleData';
+import { ArticleFactory } from '../../src/factoryItems/ArticleFactory';
 import { CreateArticlePage } from '../../src/ui/pages/article/CreateArticlePage';
 import { InternalViewArticlePage } from '../../src/ui/pages/article/view/InternalViewArticlePage';
+
+const articleFactory = new ArticleFactory();
 
 export const test = base.extend<{
   articleWithoutTags;
@@ -10,12 +12,12 @@ export const test = base.extend<{
   internalViewArticlePage;
 }>({
   articleWithoutTags: async ({}, use) => {
-    const article = generateNewArticleData();
+    const article = articleFactory.generateArticle();
 
     await use(article);
   },
   articleWithOneTag: async ({}, use) => {
-    const article = generateNewArticleData(1);
+    const article = articleFactory.generateArticle({ tags: 1 });
 
     await use(article);
   },
