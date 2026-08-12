@@ -1,5 +1,4 @@
 import { test } from '../../_fixtures/fixtures';
-import { generateNewArticleData } from '../../../src/common/testData/generateNewArticleData';
 import { signUpUser } from '../../../src/ui/actions/auth/signUpUser';
 
 const testParameters = [
@@ -7,10 +6,13 @@ const testParameters = [
   { tagsNumber: 2, testNameEnding: 'two tags' },
   { tagsNumber: 10, testNameEnding: 'ten tags' },
 ];
+let article;
 
 testParameters.forEach(({ tagsNumber, testNameEnding }) => {
   test.describe('Create an article with tags', () => {
-    test.beforeEach(async ({ page, user }) => {
+    test.beforeEach(async ({ page, user, factories }) => {
+      article = factories.article.generateArticle({ tags: tagsNumber });
+
       await signUpUser(page, user);
     });
 
@@ -18,10 +20,7 @@ testParameters.forEach(({ tagsNumber, testNameEnding }) => {
       internalHomePage,
       createArticlePage,
       internalViewArticlePage,
-      logger,
     }) => {
-      const article = generateNewArticleData(logger, tagsNumber);
-
       await internalHomePage.header.clickNewArticleLink();
       await createArticlePage.fillTitleField(article.title);
       await createArticlePage.fillDescriptionField(article.description);
