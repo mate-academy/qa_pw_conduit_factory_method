@@ -7,8 +7,8 @@ export class ArticleFactory {
     article.title = options.title ?? this.generateTitle();
     article.description = options.description ?? this.generateDescription();
     article.text = options.text ?? this.generateText();
-    article.tags =
-      Array.from({ length: options.tags }, () => faker.lorem.word()) ?? 0;
+    const tagsCount = Math.max(0, parseInt(options.tags, 10) || 0);
+    article.tags = Array.from({ length: tagsCount }, () => faker.lorem.word());
 
     return article;
   }
