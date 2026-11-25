@@ -1,32 +1,30 @@
-import { test as base } from '@playwright/test';
-import { generateNewArticleData } from '../../src/common/testData/generateNewArticleData';
+import { test as base } from './fixturesFactories';
 import { CreateArticlePage } from '../../src/ui/pages/article/CreateArticlePage';
 import { InternalViewArticlePage } from '../../src/ui/pages/article/view/InternalViewArticlePage';
 
+type Article = {
+  title: string;
+  description: string;
+  text: string;
+  tags: string[];
+};
+
 export const test = base.extend<{
-  articleWithoutTags;
-  articleWithOneTag;
-  createArticlePage;
-  internalViewArticlePage;
+  articleWithoutTags: Article;
+  articleWithOneTag: Article;
+  createArticlePage: CreateArticlePage;
+  internalViewArticlePage: InternalViewArticlePage;
 }>({
-  articleWithoutTags: async ({}, use) => {
-    const article = generateNewArticleData();
-
-    await use(article);
+  articleWithoutTags: async ({ factories }, use) => {
+    await use(factories.article.generateArticle());
   },
-  articleWithOneTag: async ({}, use) => {
-    const article = generateNewArticleData(1);
-
-    await use(article);
+  articleWithOneTag: async ({ factories }, use) => {
+    await use(factories.article.generateArticle(1));
   },
   createArticlePage: async ({ page }, use) => {
-    const createArticlePage = new CreateArticlePage(page);
-
-    await use(createArticlePage);
+    await use(new CreateArticlePage(page));
   },
   internalViewArticlePage: async ({ page }, use) => {
-    const viewArticlePage = new InternalViewArticlePage(page);
-
-    await use(viewArticlePage);
+    await use(new InternalViewArticlePage(page));
   },
 });
