@@ -1,12 +1,15 @@
 import { test as base } from './fixturesFactories';
+import { ArticleFactory } from '../../src/factoryItems/ArticleFactory';
 import { CreateArticlePage } from '../../src/ui/pages/article/CreateArticlePage';
 import { InternalViewArticlePage } from '../../src/ui/pages/article/view/InternalViewArticlePage';
 
+type ArticleData = ReturnType<ArticleFactory['generateArticle']>;
+
 export const test = base.extend<{
-  articleWithoutTags;
-  articleWithOneTag;
-  createArticlePage;
-  internalViewArticlePage;
+  articleWithoutTags: ArticleData;
+  articleWithOneTag: ArticleData;
+  createArticlePage: CreateArticlePage;
+  internalViewArticlePage: InternalViewArticlePage;
 }>({
   articleWithoutTags: async ({ factories }, use) => {
     const article = factories.article.generateArticle();
