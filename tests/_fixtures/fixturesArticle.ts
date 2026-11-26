@@ -1,21 +1,23 @@
-import { test as base } from '@playwright/test';
-import { generateNewArticleData } from '../../src/common/testData/generateNewArticleData';
+import { test as base } from './fixturesFactories';
+import { ArticleFactory } from '../../src/factoryItems/ArticleFactory';
 import { CreateArticlePage } from '../../src/ui/pages/article/CreateArticlePage';
 import { InternalViewArticlePage } from '../../src/ui/pages/article/view/InternalViewArticlePage';
 
+type ArticleData = ReturnType<ArticleFactory['generateArticle']>;
+
 export const test = base.extend<{
-  articleWithoutTags;
-  articleWithOneTag;
-  createArticlePage;
-  internalViewArticlePage;
+  articleWithoutTags: ArticleData;
+  articleWithOneTag: ArticleData;
+  createArticlePage: CreateArticlePage;
+  internalViewArticlePage: InternalViewArticlePage;
 }>({
-  articleWithoutTags: async ({}, use) => {
-    const article = generateNewArticleData();
+  articleWithoutTags: async ({ factories }, use) => {
+    const article = factories.article.generateArticle();
 
     await use(article);
   },
-  articleWithOneTag: async ({}, use) => {
-    const article = generateNewArticleData(1);
+  articleWithOneTag: async ({ factories }, use) => {
+    const article = factories.article.generateArticle(1);
 
     await use(article);
   },
