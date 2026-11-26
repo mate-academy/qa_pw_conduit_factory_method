@@ -4,7 +4,11 @@ import { UserSettingsFactory } from '../../src/factoryItems/UserSettingsFactory'
 import { ArticleFactory } from '../../src/factoryItems/ArticleFactory';
 
 export const test = base.extend<{
-  factories;
+  factories: {
+    user: UserFactory;
+    userSettings: UserSettingsFactory;
+    article: ArticleFactory;
+  };
 }>({
   factories: async ({}, use) => {
     const factories = {
