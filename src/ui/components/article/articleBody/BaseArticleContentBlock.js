@@ -10,7 +10,9 @@ export class BaseArticleContentBlock extends BaseComponent {
   }
 
   #tagListItem(tagName) {
-    return this.page.getByRole('listitem').filter({ hasText: tagName });
+    return this.page
+      .locator('li.tag-default')
+      .and(this.page.getByText(tagName, { exact: true }));
   }
 
   async assertArticleTextIsVisible(text) {
